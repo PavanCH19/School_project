@@ -1,0 +1,21 @@
+/* Global font settings */
+body {
+    font-family: 'Tulu', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+/* Optional: You can apply specific fonts to different sections */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Tulu', sans-serif;
+}
+
+/* For Kannada text inside specific elements */
+.kannada-text {
+    font-family: 'Tulu', sans-serif;
+}
