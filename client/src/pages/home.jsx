@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Footer from "../components/footer";
-import NavBar from "../components/navBar";
+import NavBar from "../components/Navbar";
 import AboutSchool from "../components/AboutSchool";
 import AOS from "aos";
 import "aos/dist/aos.css";
