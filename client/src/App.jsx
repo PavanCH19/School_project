@@ -1,4 +1,3 @@
-
 import Home from './pages/home'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Login from './pages/Login'
@@ -13,6 +12,51 @@ import FullAttendanceDashboard from './components/principalDashboard/Attendence'
 import FeeManagement from './components/principalDashboard/FeeManagement'
 import ExamAndResult from './components/principalDashboard/ExamResult'
 import ClassTimetable from './components/principalDashboard/ClassTimetable'
+import Transport from './components/principalDashboard/Transport'
+import Library from './components/principalDashboard/Library'
+import Reports from './components/principalDashboard/Reports'
+import Settings from './components/principalDashboard/Settings'
+import EventCalendar from './components/EventCalendar'
+import Hostel from './components/principalDashboard/Hostel'
+import React, { Suspense } from 'react'
+
+// Loading Component
+const LoadingSpinner = () => (
+  <div className="d-flex justify-content-center align-items-center p-5">
+    <div className="spinner-border text-primary" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </div>
+  </div>
+);
+
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="p-4 text-center">
+          <h2>Something went wrong.</h2>
+          <button 
+            className="btn btn-primary mt-3" 
+            onClick={() => window.location.reload()}
+          >
+            Reload Page
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 function App() {
   return (
@@ -29,15 +73,27 @@ function App() {
             <Route path="students" element={<Student />} />
             <Route path="teachers" element={<TeacherStaffDetails />} />
             <Route path="attendance" element={<FullAttendanceDashboard />} />
-            <Route path="fee-management" element={<FeeManagement />} />
+            <Route path="fee-management" element={
+              <ErrorBoundary>
+                <Suspense fallback={<LoadingSpinner />}>
+                  <FeeManagement />
+                </Suspense>
+              </ErrorBoundary>
+            } />
             <Route path="exams-results" element={<ExamAndResult />} />
             <Route path="timetable" element={<ClassTimetable />} />
-            <Route path="events-calendar" element={<h1>Events & Calendar</h1>} />
-            <Route path="transport" element={<h1>Transport</h1>} />
-            <Route path="library" element={<h1>Library</h1>} />
-            <Route path="hostel" element={<h1>Hostel</h1>} />
-            <Route path="reports" element={<h1>Reports</h1>} />
-            <Route path="admin-settings" element={<h1>Admin Settings</h1>} />
+            <Route path="events-calendar" element={<EventCalendar />} />
+            <Route path="transport" element={<Transport />} />
+            <Route path="library" element={<Library />} />
+            <Route path="hostel" element={<Hostel />} />
+            <Route path="reports" element={
+              <ErrorBoundary>
+                <Suspense fallback={<LoadingSpinner />}>
+                  <Reports />
+                </Suspense>
+              </ErrorBoundary>
+            } />
+            <Route path="admin-settings" element={<Settings />} />
           </Route>
           {/* Add more routes as needed */}
         </Routes>
