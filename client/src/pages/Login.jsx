@@ -1,6 +1,6 @@
 import Footer from "../components/footer";
 import Header from "../components/Header";
-import NavBar from "../components/navBar";
+import NavBar from "../components/Navbar";
 
 const Login = () => {
     return (
